@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var watch = require('gulp-watch');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
@@ -8,7 +9,7 @@ var uglify = require('gulp-uglify');
 var jsFiles = 'assets/js/*.js',
 jsDest = '../liri-node-app/assets/js/Final/';
 
-gulp.task('scripts', function() {
+gulp.task('js', function() {
 return gulp.src(jsFiles)
     .pipe(concat('scripts.js'))
     .pipe(gulp.dest(jsDest))
@@ -16,3 +17,9 @@ return gulp.src(jsFiles)
     .pipe(uglify())
     .pipe(gulp.dest(jsDest));
 });
+
+
+gulp.task('watch', function() {
+    gulp.watch('../liri-node-app/assets/js/**.js', ['js']);
+
+  });
