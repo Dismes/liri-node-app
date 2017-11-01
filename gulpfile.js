@@ -11,9 +11,9 @@ jsDest = '../liri-node-app/assets/js/Final/';
 
 gulp.task('js', function() {
 return gulp.src(jsFiles)
-    .pipe(concat('scripts.js'))
+    .pipe(concat('lris.js'))
     .pipe(gulp.dest(jsDest))
-    .pipe(rename('scripts.min.js'))
+    .pipe(rename('lris.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest(jsDest));
 });
