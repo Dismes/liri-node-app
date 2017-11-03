@@ -5,9 +5,10 @@ var start = function () {
             myTweets();
             break;
         case 'spotify-this-song':
-            spotifyThisSong();
+            spotifyThisSong(input[1]);
             break;
         case 'movie-this':
+            movieThis(input[1]);
             break;
         case 'do-what-it-says':
             break;
@@ -33,10 +34,24 @@ var myTweets = function () {
 
 var spotifyThisSong = function (songName) {
 
+    console.log(songName);
+    if (songName === undefined) {
+        console.log("I see that you didn't search anything, here just for you, I will search my favorite song");
+        console.log("node lris.js spotify-this-song 'No Pain, No Game'");
+        spotifyThisSongSearch("No Pain, No Game");
+    } else {
+        spotifyThisSongSearch(songName);
+
+    }
+
+
+};
+
+var spotifyThisSongSearch = function (song) {
     spotify
         .search({
             type: 'track',
-            query: 'All the Small Things'
+            query: songName
         })
         .then(function (response) {
             console.log(response.tracks.items[0]);
@@ -48,11 +63,26 @@ var spotifyThisSong = function (songName) {
         .catch(function (err) {
             console.log(err);
         });
+}
 
+var movieThis = function (movie) {
 
-};
+    var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=40e9cece";
 
-var movieThis = function () {
+    var request = require('request');
+
+    request(queryURL, function (error, response, body) {
+        console.log(JSON.parse(body));
+        console.log('Title: ' + JSON.parse(body).Title);
+        console.log('Year: ' + JSON.parse(body).Year);
+        console.log('Rated: ' + JSON.parse(body).Rated);
+        console.log('IMDB: ' + JSON.parse(body).Ratings[0].Value);
+        console.log('Rotten Tomatoes: ' + JSON.parse(body).Ratings[1].Value);
+        console.log('County of production: ' + JSON.parse(body).Country);
+        console.log('Language: ' + JSON.parse(body).Language);
+        console.log('Plot: ' + JSON.parse(body).Plot);
+        console.log('Actos: ' + JSON.parse(body).Actors);
+    });
 
 };
 
